@@ -149,6 +149,7 @@ class Transaction(models.Model):
         return f'Пополнение {self.created_at} на {self.amount} руб.'
 
     def get_absolute_url(self):
+        """Возвращает URL-адрес страницы детального просмотра записи."""
         return reverse(
             'transaction:transaction_detail',
             kwargs={'transaction_id': self.pk}
