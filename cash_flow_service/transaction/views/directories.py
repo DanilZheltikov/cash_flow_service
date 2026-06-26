@@ -22,7 +22,7 @@ MODEL_TYPE = Literal['status', 'type', 'category', 'subcategory']
 class DirectoryManager(TemplateView):
     """Главная страница управления всеми справочниками системы."""
 
-    template_name = 'transaction/directories.html'
+    template_name = 'directories/directories.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
