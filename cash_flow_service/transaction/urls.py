@@ -1,5 +1,10 @@
 from django.urls import path
 
+from .views.directories import (
+    DirectoryManager,
+    delete_directory_item,
+    manage_directory_item
+)
 from .views.transaction import (
     IndexView,
     TransactionCreateView,
@@ -11,25 +16,48 @@ from .views.transaction import (
 app_name = 'transaction'
 
 urlpatterns = [
+    # Транзакции
+    path('', IndexView.as_view(), name='index'),
     path(
-        'transactions/create/',
+        'create/',
         TransactionCreateView.as_view(),
         name='create_transaction'
     ),
     path(
-        'transactions/<int:transaction_id>/',
+        '<int:transaction_id>/',
         TransactionDetailView.as_view(),
         name='transaction_detail'
     ),
     path(
-        'transactions/<int:transaction_id>/edit/',
+        '<int:transaction_id>/edit/',
         TransactionUpdateView.as_view(),
         name='edit_transaction'
     ),
     path(
-        'transactions/<int:transaction_id>/delete/',
+        '<int:transaction_id>/delete/',
         TransactionDeleteView.as_view(),
         name='delete_transaction'
     ),
-    path('', IndexView.as_view(), name='index'),
+
+    # Справочники:
+    path(
+        'directories/',
+        DirectoryManager.as_view(),
+        name='directory-management'
+    ),
+    path(
+        'directories/add/<str:model_type>/',
+        manage_directory_item,
+        name='directory-add'
+    ),
+    path(
+        'directories/edit/<str:model_type>/<int:item_id>/',
+        manage_directory_item,
+        name='directory-edit'
+    ),
+    path(
+        'directories/delete/<str:model_type>/<int:item_id>/',
+        delete_directory_item,
+        name='directory-delete'
+    ),
 ]
