@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -37,6 +38,8 @@ class TransactionUpdateView(TransactionBaseMixin, UpdateView):
 
 
 class TransactionDeleteView(TransactionBaseMixin, DeleteView):
+
+    success_url = reverse_lazy('index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

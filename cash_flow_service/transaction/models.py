@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 from cash_flow_service.constants import (
@@ -146,3 +147,9 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f'Пополнение {self.created_at} на {self.amount} руб.'
+
+    def get_absolute_url(self):
+        return reverse(
+            'transaction:transaction_detail',
+            kwargs={'transaction_id': self.pk}
+        )
