@@ -7,10 +7,10 @@ from django.views.generic import (
 )
 from django_filters.views import FilterView
 
-from .forms import TransactionForm
-from .filters import TransactionFilter
-from .mixins import TransactionBaseMixin
-from .models import Transaction
+from ..forms import TransactionForm
+from ..filters import TransactionFilter
+from ..mixins import TransactionBaseMixin
+from ..models import Transaction
 from cash_flow_service.constants import TRANSACTION_COUNT
 
 
