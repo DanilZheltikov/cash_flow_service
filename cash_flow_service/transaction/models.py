@@ -20,6 +20,7 @@ class TransactionStatus(models.Model):
     )
 
     class Meta:
+        ordering = ['name']
         verbose_name = 'Статус'
         verbose_name_plural = 'Статусы'
 
@@ -37,6 +38,7 @@ class TransactionType(models.Model):
     )
 
     class Meta:
+        ordering = ['name']
         verbose_name = 'Тип'
         verbose_name_plural = 'Типы'
 
@@ -58,6 +60,7 @@ class Category(models.Model):
     )
 
     class Meta:
+        ordering = ['name']
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
         constraints = [
@@ -85,6 +88,7 @@ class Subcategory(models.Model):
     )
 
     class Meta:
+        ordering = ['name']
         verbose_name = 'Подкатегория'
         verbose_name_plural = 'Подкатегории'
         constraints = [
@@ -135,8 +139,6 @@ class Transaction(models.Model):
         Subcategory,
         verbose_name='Подкатегория транзакции',
         on_delete=models.PROTECT,
-        blank=True,
-        null=True,
     )
 
     class Meta:
