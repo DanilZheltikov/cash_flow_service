@@ -2,20 +2,27 @@ from django.views.generic import (
     CreateView,
     DeleteView,
     DetailView,
-    ListView,
     UpdateView
 )
+from django_filters.views import FilterView
 
 from .forms import TransactionForm
+from .filters import TransactionFilter
 from .mixins import TransactionBaseMixin
 from .models import Transaction
 from cash_flow_service.constants import TRANSACTION_COUNT
 
 
-class IndexView(ListView):
+class IndexView(FilterView):
     model = Transaction
     template_name = 'transaction/index.html'
     paginate_by = TRANSACTION_COUNT
+    filterset_class = TransactionFilter
+
+    def get_queryset(self):
+        return super().get_queryset().select_related(
+            'status', 'transaction_type', 'category', 'subcategory'
+        )
 
 
 class TransactionDetailView(DetailView):
