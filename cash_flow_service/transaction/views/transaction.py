@@ -40,22 +40,22 @@ class TransactionDetailView(DetailView):
 class TransactionUpdateView(TransactionBaseMixin, UpdateView):
     """Представление для изменения записи ДДС с редиректом на detail."""
 
+    title = 'Редактирование'
+    mode = 'update'
     form_class = TransactionForm
 
 
 class TransactionDeleteView(TransactionBaseMixin, DeleteView):
     """Представление для удаления записи ДДС с редиректом на index."""
 
+    title = 'Удаление'
+    mode = 'delete'
     success_url = reverse_lazy('index')
-
-    def get_context_data(self, **kwargs):
-        """Добавляет форму в контекст для отображения данных при удалении."""
-        context = super().get_context_data(**kwargs)
-        context['form'] = TransactionForm(instance=self.object)
-        return context
 
 
 class TransactionCreateView(TransactionBaseMixin, CreateView):
     """Представление для создания новой записи ДДС с редиректом на detail."""
 
+    title = 'Создание'
+    mode = 'create'
     form_class = TransactionForm
