@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from smart_selects.db_fields import ChainedForeignKey
 
 from cash_flow_service.constants import (
     DECIMAL_PLACES,
@@ -132,13 +133,21 @@ class Transaction(models.Model):
         verbose_name='Тип транзакции',
         on_delete=models.PROTECT,
     )
-    category = models.ForeignKey(
+    category = ChainedForeignKey(
         Category,
+        chained_field='transaction_type',
+        chained_model_field='transaction_type',
+        show_all=False,
+        auto_choose=True,
         verbose_name='Категория транзакции',
         on_delete=models.PROTECT,
     )
-    subcategory = models.ForeignKey(
+    subcategory = ChainedForeignKey(
         Subcategory,
+        chained_field='category',
+        chained_model_field='category',
+        show_all=False,
+        auto_choose=True,
         verbose_name='Подкатегория транзакции',
         on_delete=models.PROTECT,
     )
