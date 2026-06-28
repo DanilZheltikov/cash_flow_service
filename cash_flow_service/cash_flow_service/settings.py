@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'smart_selects',
     'django_bootstrap5',
     'django_filters',
     'transaction.apps.TransactionConfig',
