@@ -1,0 +1,12 @@
+{% extends "form_base.html" %}
+{% load django_bootstrap5 %}
+{% block delete %}
+  <article>
+    <p>{{ object.created_at|date:"d E Y" }} | {{ object.transaction_type }}</p>
+    <h3>{{ object.status }}</h3>
+    <p>{{ object.amount }}</p>
+    <p>{{ object.category }} | {{ object.subcategory }}</p>
+    <p>{{ object.comment|linebreaksbr }}</p>
+  </article>
+  {% bootstrap_button button_type="submit" content="Удалить" button_class="btn-danger" %}
+{% endblock %}
