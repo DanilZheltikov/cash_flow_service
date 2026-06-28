@@ -55,6 +55,7 @@ class Category(models.Model):
     )
     transaction_type = models.ForeignKey(
         TransactionType,
+        verbose_name='Тип транзакции',
         on_delete=models.CASCADE,
         related_name='categories',
     )
@@ -83,6 +84,7 @@ class Subcategory(models.Model):
     )
     category = models.ForeignKey(
         Category,
+        verbose_name='Название категории',
         on_delete=models.CASCADE,
         related_name='subcategories',
     )
