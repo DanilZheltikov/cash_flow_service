@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'django_filters',
     'transaction.apps.TransactionConfig',
+    'custom_error.apps.CustomErrorConfig',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CSRF_FAILURE_VIEW = 'custom_error.views.error_handler'
 
 LANGUAGE_CODE = 'ru-RU'
 
