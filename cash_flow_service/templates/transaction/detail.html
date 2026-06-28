@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}
+  {{ transaction.id }} | {{ transaction.transaction_type }} | {{ transaction.created_at }}
+{% endblock %}
+
+{% block content %}
+  <div class="col d-flex justify-content-center">
+    <div class="card" style="width: 40rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ transaction.status }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <small>
+            {{ transaction.created_at|date:"d E Y" }} | {{ transaction.transaction_type }}<br>
+          </small>
+        </h6>
+        <p class="card-text">{{ transaction.amount }}</p>
+        <p class="card-text">{{ transaction.comment|linebreaksbr }}</p>
+        <div class="mb-2">
+          <a class="btn btn-sm btn-secondary" href="{% url 'transaction:edit_transaction' transaction.id %}" role="button">
+            Редактировать
+          </a>
+          <a class="btn btn-sm btn-danger" href="{% url 'transaction:delete_transaction' transaction.id %}" role="button">
+            Удалить
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
