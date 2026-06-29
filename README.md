@@ -63,7 +63,15 @@ python manage.py runserver
 
 ### Запуск через Docker Compose (Рекомендуется):
 
-1. Запустите **Docker Compose**:
+1. Создайте файл `.env` в корне проекта и заполните следующие переменные:
+
+```env
+SECRET_KEY=ваш-секретный-ключ
+DEBUG=либо ставим 'true' либо 'false'
+ALLOWED_HOSTS=перечисляем,хосты,через,запятую
+```
+
+2. Запустите **Docker Compose**:
 
 ```bash
 docker compose up -d
