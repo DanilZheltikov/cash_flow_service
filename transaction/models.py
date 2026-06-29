@@ -1,3 +1,6 @@
+from decimal import Decimal
+
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -7,7 +10,8 @@ from cash_flow_service.constants import (
     DECIMAL_PLACES,
     MAX_DIGITS,
     MAX_LEN_COMMENT,
-    MAX_LEN_NAME
+    MAX_LEN_NAME,
+    MIN_AMOUNT_VALUE
 )
 
 
@@ -112,10 +116,14 @@ class Transaction(models.Model):
         'Сумма',
         max_digits=MAX_DIGITS,
         decimal_places=DECIMAL_PLACES,
+        validators=[
+            MinValueValidator(Decimal(MIN_AMOUNT_VALUE))
+        ]
     )
     created_at = models.DateField(
         'Дата создания',
         default=timezone.now,
+        db_index=True,
     )
     comment = models.TextField(
         'Комментарий',
@@ -159,7 +167,10 @@ class Transaction(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'Пополнение {self.created_at} на {self.amount} руб.'
+        return (
+            f'{self.transaction_type.name} '
+            f'{self.created_at} на {self.amount} руб.'
+        )
 
     def get_absolute_url(self):
         """Возвращает URL-адрес страницы детального просмотра записи."""
