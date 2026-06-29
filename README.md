@@ -17,8 +17,11 @@ git clone https://github.com/DanilZheltikov/cash_flow_service.git
 cd cash_flow_service
 
 ```
+---
 
-3. Создайте и активируйте виртуальное окружение:
+### Запуск в режиме разработки (без Docker):
+
+1. Создайте и активируйте виртуальное окружение:
 
 ```bash
 # Windows:
@@ -30,35 +33,50 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-4. Установите зависимости:
+2. Установите зависимости:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-5. Создайте и заполните в директории проекта файл `.env`:
-
-```env
-SECRET_KEY=your-super-secret-key
-```
-
-6. Выполните миграции:
+3. Выполните миграции:
 
 ```bash
 python manage.py migrate
 ```
 
-7. Загрузите моковые данные:
+4. Загрузите моковые данные:
 
 ```bash
 python manage.py load_mock_data
 ```
 
-8. Запустите сервер разработки:
+5. Запустите сервер разработки:
 
 ```bash
 python manage.py runserver
 ```
+
+6. Проект будет доступен по **[ссылке](http://127.0.0.1:8000/)**
+
+---
+
+### Запуск через Docker Compose (Рекомендуется):
+
+1. Запустите **Docker Compose**:
+
+```bash
+docker compose up -d
+```
+
+2. Подготовьте проект:
+
+```bash
+docker compose exec web /app/init.sh
+```
+
+3. Проект будет доступен локально по **[ссылке](http://localhost/)**
+
 
 ## Скриншоты:
 
