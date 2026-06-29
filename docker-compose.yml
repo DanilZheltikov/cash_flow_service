@@ -1,0 +1,24 @@
+volumes:
+  static_volume:
+  sqlite_data:
+
+services:
+  web:
+    image: danilzheltikov/cash_flow_service
+    restart: always
+    env_file: .env
+    volumes:
+      - static_volume:/app/staticfiles
+      - sqlite_data:/app/db_data
+    expose:
+      - "8000"
+
+  gateway:
+    image: danilzheltikov/cash_flow_service_gateway
+    restart: always
+    volumes:
+      - static_volume:/app/staticfiles
+    ports:
+      - "80:80"
+    depends_on:
+      - web
