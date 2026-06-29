@@ -37,7 +37,7 @@ class TransactionForm(forms.ModelForm):
         if (
             category
             and transaction_type
-            and category.transaction_type != transaction_type
+            and category.transaction_type_id != transaction_type.id
         ):
             self.add_error(
                 field='category',
@@ -47,12 +47,12 @@ class TransactionForm(forms.ModelForm):
                 )
             )
 
-        if subcategory and category and subcategory.category != category:
+        if subcategory and category and subcategory.category_id != category.id:
             self.add_error(
                 field='subcategory',
                 error=(
                     f'{subcategory.name} '
-                    f'не связана с категорие {category.name}'
+                    f'не связана с категорией {category.name}'
                 )
             )
 

@@ -9,12 +9,12 @@ from django_filters.views import FilterView
 
 from ..forms import TransactionForm
 from ..filters import TransactionFilter
-from ..mixins import TransactionBaseMixin
+from ..mixins import TransactionBaseMixin, WithRelatedMixin
 from ..models import Transaction
 from cash_flow_service.constants import TRANSACTION_COUNT
 
 
-class IndexView(FilterView):
+class IndexView(WithRelatedMixin, FilterView):
     """Главная страница со списком записей ДДС и фильтрацией."""
 
     model = Transaction
@@ -22,14 +22,8 @@ class IndexView(FilterView):
     paginate_by = TRANSACTION_COUNT
     filterset_class = TransactionFilter
 
-    def get_queryset(self):
-        """Оптимизирует запросы к БД, подгружая связанные справочники."""
-        return super().get_queryset().select_related(
-            'status', 'transaction_type', 'category', 'subcategory'
-        )
 
-
-class TransactionDetailView(DetailView):
+class TransactionDetailView(WithRelatedMixin, DetailView):
     """Страница детального просмотра отдельной записи ДДС."""
 
     model = Transaction

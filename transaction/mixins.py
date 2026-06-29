@@ -14,6 +14,12 @@ from .models import (
 )
 
 
+class WithRelatedMixin:
+    """Оптимизирует запросы к БД, подгружая связанные справочники."""
+    def get_queryset(self):
+        return super().get_queryset().with_related()
+
+
 class CrudContextMixin:
     """Миксин для добавления режима и заголовка в контекст шаблона."""
 
@@ -28,7 +34,7 @@ class CrudContextMixin:
         return context
 
 
-class TransactionBaseMixin(CrudContextMixin):
+class TransactionBaseMixin(WithRelatedMixin, CrudContextMixin):
     """Базовый миксин для CRUD-представлений транзакций."""
 
     model: Type[Model] = Transaction

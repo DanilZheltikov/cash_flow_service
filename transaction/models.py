@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 from smart_selects.db_fields import ChainedForeignKey
 
+from .querysets import TransactionQuerySet
 from cash_flow_service.constants import (
     DECIMAL_PLACES,
     MAX_DIGITS,
@@ -160,6 +161,8 @@ class Transaction(models.Model):
         on_delete=models.PROTECT,
     )
 
+    objects = TransactionQuerySet.as_manager()
+
     class Meta:
         default_related_name = 'transactions'
         verbose_name = 'Транзакция'
@@ -167,10 +170,8 @@ class Transaction(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return (
-            f'{self.transaction_type.name} '
-            f'{self.created_at} на {self.amount} руб.'
-        )
+        return f'{self.created_at} | {self.amount} руб.'
+        
 
     def get_absolute_url(self):
         """Возвращает URL-адрес страницы детального просмотра записи."""

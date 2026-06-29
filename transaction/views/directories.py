@@ -24,7 +24,10 @@ class DirectoryManager(TemplateView):
             Category.objects.select_related('transaction_type').all()
         )
         context['subcategories'] = (
-            Subcategory.objects.select_related('category').all()
+            Subcategory.objects.select_related(
+                'category',
+                'category__transaction_type'
+            ).all()
         )
         return context
 
