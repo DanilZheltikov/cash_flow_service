@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import include, path
 
+handler400 = 'custom_error.views.error_handler'
 handler403 = 'custom_error.views.error_handler'
 handler404 = 'custom_error.views.error_handler'
 handler500 = 'custom_error.views.error_handler'
